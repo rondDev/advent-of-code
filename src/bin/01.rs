@@ -1,23 +1,20 @@
 advent_of_code::solution!(1);
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let lines = input.lines();
+    let lines: Vec<u32> = input.lines().map(|l| l.parse::<u32>().unwrap()).collect();
     let mut prev_line = 0;
     let mut increments = 0;
     for line in lines {
-        let line_value = match line.parse() {
-            Ok(v) => v,
-            Err(_) => 0,
-        };
-        if line_value > prev_line && prev_line != 0 {
+        if line > prev_line && prev_line != 0 {
             increments += 1;
         }
-        prev_line = line_value;
+        prev_line = line;
     }
     Some(increments)
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
+    let lines: Vec<u32> = input.lines().map(|l| l.parse::<u32>().unwrap()).collect();
     None
 }
 
