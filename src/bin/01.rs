@@ -15,7 +15,20 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 pub fn part_two(input: &str) -> Option<u32> {
     let lines: Vec<u32> = input.lines().map(|l| l.parse::<u32>().unwrap()).collect();
-    None
+    let mut iter = lines.windows(3);
+    let mut prev_window = 0;
+    let mut increments = 0;
+    while let Some(x) = iter.next() {
+        let mut window_total = 0;
+        for num in x {
+            window_total += num;
+        }
+        if window_total > prev_window && prev_window != 0 {
+            increments += 1;
+        }
+        prev_window = window_total;
+    }
+    Some(increments)
 }
 
 #[cfg(test)]
