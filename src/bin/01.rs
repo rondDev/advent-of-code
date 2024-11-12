@@ -19,10 +19,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     let mut prev_window = 0;
     let mut increments = 0;
     while let Some(x) = iter.next() {
-        let mut window_total = 0;
-        for num in x {
-            window_total += num;
-        }
+        let window_total = x.into_iter().sum();
         if window_total > prev_window && prev_window != 0 {
             increments += 1;
         }
