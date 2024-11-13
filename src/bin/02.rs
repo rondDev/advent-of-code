@@ -6,13 +6,17 @@ enum Direction {
     Up,
 }
 
+fn get_split(input: &str) -> (&str, u32) {
+    let split = input.split_once(" ").unwrap();
+    let split_val: u32 = split.1.parse().unwrap();
+    (split.0, split_val)
+}
+
 pub fn part_one(input: &str) -> Option<u32> {
     let lines: Vec<(Direction, u32)> = input
         .lines()
         .map(|l| {
-            let split = l.split(" ").collect::<Vec<&str>>();
-            let split_direction = split[0];
-            let split_val: u32 = split[1].parse().unwrap();
+            let (split_direction, split_val) = get_split(l);
             match split_direction {
                 "forward" => (Direction::Forward, split_val),
                 "down" => (Direction::Down, split_val),
@@ -40,9 +44,7 @@ pub fn part_two(input: &str) -> Option<u32> {
     let lines: Vec<(Direction, u32)> = input
         .lines()
         .map(|l| {
-            let split = l.split(" ").collect::<Vec<&str>>();
-            let split_direction = split[0];
-            let split_val: u32 = split[1].parse().unwrap();
+            let (split_direction, split_val) = get_split(l);
             match split_direction {
                 "forward" => (Direction::Forward, split_val),
                 "down" => (Direction::Down, split_val),
