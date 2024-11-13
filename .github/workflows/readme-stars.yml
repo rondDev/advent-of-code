@@ -9,7 +9,7 @@ on:
 jobs:
     update-readme:
         runs-on: ubuntu-latest
-        if: ${{ vars.AOC_ENABLED == 'true' }}
+        if: ${{ vars.AOC_ENABLED != 'false' }}
         permissions:
             contents: write
         steps:
