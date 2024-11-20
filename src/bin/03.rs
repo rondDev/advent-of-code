@@ -36,56 +36,50 @@ pub fn part_two(input: &str) -> Option<u32> {
         let mut ones_count = 0;
         let mut zeroes_count = 0;
         for line in &lines {
-            if line.chars().collect::<Vec<char>>()[i] == '1' {
+            if line.chars().nth(i).unwrap() == '1' {
                 ones_count += 1;
             } else {
                 zeroes_count += 1;
             }
         }
-        lines = lines
-            .into_iter()
-            .filter(|&x| {
-                if ones_count != 0 && zeroes_count != 0 {
-                    if ones_count > zeroes_count {
-                        x.chars().collect::<Vec<char>>()[i] == '1'
-                    } else if ones_count == zeroes_count {
-                        x.chars().collect::<Vec<char>>()[i] == '1'
-                    } else {
-                        x.chars().collect::<Vec<char>>()[i] == '0'
-                    }
+        lines.retain(|&x| {
+            if ones_count != 0 && zeroes_count != 0 {
+                if ones_count > zeroes_count {
+                    x.chars().nth(i).unwrap() == '1'
+                } else if ones_count == zeroes_count {
+                    x.chars().nth(i).unwrap() == '1'
                 } else {
-                    x == x
+                    x.chars().nth(i).unwrap() == '0'
                 }
-            })
-            .collect::<Vec<&str>>();
+            } else {
+                x == x
+            }
+        });
 
         ones_count = 0;
         zeroes_count = 0;
 
         for line in &lines_copy {
-            if line.chars().collect::<Vec<char>>()[i] == '1' {
+            if line.chars().nth(i).unwrap() == '1' {
                 ones_count += 1;
             } else {
                 zeroes_count += 1;
             }
         }
 
-        lines_copy = lines_copy
-            .into_iter()
-            .filter(|&x| {
-                if ones_count != 0 && zeroes_count != 0 {
-                    if ones_count > zeroes_count {
-                        x.chars().collect::<Vec<char>>()[i] == '0'
-                    } else if ones_count == zeroes_count {
-                        x.chars().collect::<Vec<char>>()[i] == '0'
-                    } else {
-                        x.chars().collect::<Vec<char>>()[i] == '1'
-                    }
+        lines_copy.retain(|&x| {
+            if ones_count != 0 && zeroes_count != 0 {
+                if ones_count > zeroes_count {
+                    x.chars().nth(i).unwrap() == '0'
+                } else if ones_count == zeroes_count {
+                    x.chars().nth(i).unwrap() == '0'
                 } else {
-                    x == x
+                    x.chars().nth(i).unwrap() == '1'
                 }
-            })
-            .collect::<Vec<&str>>();
+            } else {
+                x == x
+            }
+        });
     }
     Some(bin_to_dec(lines[0]) * bin_to_dec(lines_copy[0]))
 }
